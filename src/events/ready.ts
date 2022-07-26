@@ -1,15 +1,17 @@
-const { readdirSync } = require("fs");
+const { readdirSync } = require('fs');
 
 /*
   This is an event that gets triggered on ready.
  */
 module.exports = {
-  once: true,
-  execute: (client) => {
-    const { commands, application } = client;
+  'once': true,
+  'execute': (client) => {
+    const {
+      commands, application
+    } = client;
 
-    const commandFiles = readdirSync("./src/commands").filter(
-      (file: any) => file.endsWith(".ts") || file.endsWith(".js")
+    const commandFiles = readdirSync('./src/commands').filter(
+      (file: any) => file.endsWith('.ts') || file.endsWith('.js')
     );
     for (const file of commandFiles) {
       const commandInteraction = require(`../commands/${file}`);

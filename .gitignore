@@ -1,5 +1,7 @@
+.pnpm-debug.log
 .env
 build
 config.json
 node_modules
 .vscode
+work/*
