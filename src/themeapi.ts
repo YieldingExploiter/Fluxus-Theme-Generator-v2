@@ -5,21 +5,23 @@ const maskDir = path.resolve(process.cwd(), 'masks');
 if (!fs.existsSync(maskDir))
   fs.mkdirSync(maskDir);
 const gm = _gm.subClass({ 'imageMagick': true });
-const X = 1854;
-const Y = 1090;
+export const X = 1854;
+export const Y = 1090;
 export type Settings = {
   overlay?:boolean
 }
-const Overlays = {
+export const Overlays = {
   'Top': path.resolve(process.cwd(), 'overlays', 'top.png'),
   'Bottom': path.resolve(process.cwd(), 'overlays', 'bottom.png'),
+  'Fluxus': path.resolve(process.cwd(), 'overlays', 'fluxus-preview.png')
 };
 export const ImageToWindow = async (ImagePath: string, Settings?: Settings)=>{
   let State = gm(ImagePath);
   const isGif = ImagePath.toLowerCase().endsWith('.gif');
   const TargetX = isGif ? X / 2 : X;
   const TargetY = isGif ? Y / 2 : Y;
-  State = State.resize(TargetX, TargetY, '<').resize(TargetX, TargetY, '>')
+  State = State.resize(TargetX, TargetY, '>').crop(TargetX, TargetY)
+    .resize(TargetX, TargetY, '<')
     .gravity('center')
     .crop(TargetX, TargetY)
     .resize(TargetX, TargetY, '!');

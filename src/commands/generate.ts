@@ -20,6 +20,8 @@ import * as lib from '../themeapi';
 
 const gm = _gm.subClass({ 'imageMagick': true });
 
+const FileLimit = 8000000;
+
 const { AwaitCallbackEvent } = require('../events/interactionCreate');
 
 const WorkDir = path.resolve(process.cwd(), 'work');
@@ -27,10 +29,12 @@ const DownloadDir = path.join(WorkDir, 'dl');
 const WindowDir = path.join(WorkDir, 'ui', 'win');
 const TopbarDir = path.join(WorkDir, 'ui', 'top');
 const OutputDir = path.join(WorkDir, 'out');
+const OutPreviewDir = path.join(OutputDir, 'preview');
 fs.ensureDirSync(DownloadDir);
 fs.ensureDirSync(TopbarDir);
 fs.ensureDirSync(WindowDir);
 fs.ensureDirSync(OutputDir);
+fs.ensureDirSync(OutPreviewDir);
 
 let imagesChannel: TextChannel;
 
@@ -56,6 +60,12 @@ class InputValidationError extends ValidationError {
 const MakeId = ()=>(Math.random().toString(16) + Math.random().toString(16)
   .replace(/\./g, '')).toLowerCase();
 
+const replaceSensitive = (message:string)=>{
+  process.env.SENSITIVE.split(',').forEach(v=>
+    message = message.replace(new RegExp(v, 'gi'), ''));
+  return message;
+};
+
 const SupportedImages = [
   'image/png',
   'image/jpg',
@@ -70,7 +80,7 @@ const Command: ICommand = {
     'type': ApplicationCommandType.ChatInput,
     'options': [{
       'name': 'file',
-      'description': 'The image to use',
+      'description': 'The image to use - Optimal Resolution: 1854x1090',
       'type': ApplicationCommandOptionType.Attachment,
       'required': true,
     },],
@@ -120,13 +130,18 @@ const Command: ICommand = {
       },
       {
         'Completed': false,
-        'Name': 'Cleanup',
-        'Description': 'the files on the server'
+        'Name': 'Upload',
+        'Description': 'the final theme file'
       },
       {
         'Completed': false,
-        'Name': 'Upload',
-        'Description': 'the final theme file'
+        'Name': 'Generate',
+        'Description': 'a preview of what the theme looks like'
+      },
+      {
+        'Completed': false,
+        'Name': 'Cleanup',
+        'Description': 'the files on the server'
       },
     ];
     let lastEmbed: EmbedBuilder = (new EmbedBuilder).setTitle('-');
@@ -185,7 +200,7 @@ const Command: ICommand = {
         lastEmbed.addFields([{
           'name': 'Error',
           'value': `An error ocurred while processing a step:
-${error}`
+${replaceSensitive(`${error}`.split(process.cwd()).join('<CWD>'))}`
         }]);
         Failed = true;
         await FailStep();
@@ -198,7 +213,7 @@ ${error}`
     // Step: Prepare
     await RunStep(async ()=>{ // mainly input check from here
       if (!SupportedImages.includes(file.contentType))
-        throw new InputValidationError(`Image Content Type (\`${file.contentType}\`) is not supported.
+        throw new InputValidationError(`Image Content Type is not supported.
 List of supported image types are:
  - ${SupportedImages.map(v=>{
     const split = v.split('/');
@@ -211,6 +226,8 @@ List of supported image types are:
           'allowUnknownGuild': true,
           'cache': true
         });
+      if (file.size > FileLimit)
+        throw new InputValidationError('File too big!\nPlease limit file sizes to 8MB');
     });
     const EmbedId = MakeId();
     let UseOverlay = false;
@@ -272,7 +289,8 @@ List of supported image types are:
         return;
       }
       else {
-        lastEmbed.setColor('#97435a').setFields([]);
+        lastEmbed.setColor('#97435a').setFields([])
+          .setImage('https://cdn.discordapp.com/attachments/959617195682443376/1001533615525605386/1x1_40a0b6ff.png');
         ActionRow.setComponents(
           (new ButtonBuilder)
             .setCustomId('uselessbuttonlol')
@@ -312,7 +330,7 @@ List of supported image types are:
       Settings = { 'overlay': UseOverlay };
       WindowPath = path.join(WindowDir, FileName);
       WindowState = await lib.ImageToWindow(DlPath, Settings);
-      await new Promise((resolve, reject)=>{
+      const Write = ()=>new Promise((resolve, reject)=>{
         WindowState.write(WindowPath, (err)=>{
           if (err)
             reject(err);
@@ -320,6 +338,13 @@ List of supported image types are:
             resolve(void 0);
         });
       });
+      await Write();
+      if (fs.statSync(WindowPath).size >= FileLimit){
+        if (extension === 'gif')
+          throw new ValidationError('Output Size too big!');
+        WindowPath = path.join(WindowDir, FileName.replace(extension, 'png'));
+        await Write();
+      }
     });
     // Step: Crop & Blur
     let TopbarState: _gm.State;
@@ -327,7 +352,7 @@ List of supported image types are:
     await RunStep(async ()=>{
       TopbarPath = path.join(TopbarDir, FileName);
       TopbarState = lib.WindowToTopbar(WindowState, Settings);
-      await new Promise((resolve, reject)=>{
+      const Write = ()=>new Promise((resolve, reject)=>{
         TopbarState.write(TopbarPath, (err)=>{
           if (err)
             reject(err);
@@ -335,6 +360,13 @@ List of supported image types are:
             resolve(void 0);
         });
       });
+      await Write();
+      if (fs.statSync(TopbarPath).size >= FileLimit){
+        if (extension === 'gif')
+          throw new ValidationError('Output Size too big!');
+        TopbarPath = path.join(TopbarDir, FileName.replace(extension, 'png'));
+        await Write();
+      }
     });
     // Step: Upload
     let Images: {
@@ -371,12 +403,6 @@ List of supported image types are:
           .setLabel('Titlebar Image')
       );
     });
-    // Step: Cleanup
-    await RunStep(async ()=>{
-      fs.rmSync(TopbarPath);
-      fs.rmSync(WindowPath);
-      fs.rmSync(DlPath);
-    });
     // Step: Upload Theme File
     await RunStep(async ()=>{
       const ThemeFile = path.resolve(OutputDir, `${FileName}.flux`);
@@ -393,7 +419,7 @@ List of supported image types are:
           'name': 'theme.flux',
           'attachment': ThemeFile
         }],
-        'embeds': [(new EmbedBuilder).setTitle('Theme Files')
+        'embeds': [(new EmbedBuilder).setTitle('Theme File')
           .setDescription(`[Image Files URL](${ImageEmbed.url})`)]
       });
       ActionRow.components.unshift(
@@ -404,6 +430,41 @@ List of supported image types are:
           .setLabel('theme.flux')
       );
       fs.rmSync(ThemeFile);
+    });
+    // Step: Generate Preview
+    await RunStep(async ()=>{
+      const OutFile = path.join(OutPreviewDir, FileName);
+      await new Promise((resolve, reject)=>{
+        gm(lib.X, lib.Y, 'transparent')
+          .gravity('center')
+          .draw(`image over 0,0 0,0 "${WindowPath}"`)
+          .gravity('top')
+          .draw(`image over 0,0 0,0 "${TopbarPath}"`)
+          .gravity('center')
+          .draw(`image over 0,0 0,0 "${lib.Overlays.Fluxus}"`)
+          // eslint-disable-next-line no-extra-parens
+          .write(OutFile, (err)=>(err ? reject(err) : resolve(void 0)));
+      });
+      if (fs.existsSync(OutFile)){
+        lastEmbed.setImage((await imagesChannel.send({
+          'files': [{
+            'name': `preview.${FileName}`,
+            'attachment': OutFile,
+          }],
+          'embeds': [(new EmbedBuilder).setTitle('Preview File')
+            .setDescription(`[Image Files URL](${ImageEmbed.url})`)]
+        })).attachments.first().url).addFields({
+          'name': 'Preview',
+          'value': 'Preview of the theme (may not be exact):'
+        });
+        fs.rmSync(OutFile);
+      }
+    });
+    // Step: Cleanup
+    await RunStep(async ()=>{
+      fs.rmSync(TopbarPath);
+      fs.rmSync(WindowPath);
+      fs.rmSync(DlPath);
     });
   },
 };

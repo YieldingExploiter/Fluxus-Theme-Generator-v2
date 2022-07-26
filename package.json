@@ -1,7 +1,7 @@
 {
-  "name": "discordjsv14-template",
-  "version": "0.0.0-development",
-  "description": "",
+  "name": "fluxtheme",
+  "version": "2.0.0",
+  "description": "fluxus theme generator or something",
   "main": "index.ts",
   "scripts": {
     "start": "node -r ts-node/register ./src/index.ts",
@@ -9,7 +9,7 @@
     "update": "ts-node src/commands/index.ts",
     "build": "tsc"
   },
-  "author": "expdani",
+  "author": "YieldingExploiter",
   "license": "MIT",
   "dependencies": {
     "@discordjs/rest": "^0.1.0-canary.0",
