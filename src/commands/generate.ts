@@ -410,6 +410,7 @@ List of supported image types are:
         '': 'Made Using Fluxus Theme Maker by Yielding#3961',
         'main_grid': Images.Window,
         'top_bar': Images.Topbar,
+        'border_background': '#00000000',
         'tab_background': `#00000000`, // `${await lib.TopbarToAccentColour(Topbar)}77`,
         '​': 'https://cord.breadhub.cc/'
       };
