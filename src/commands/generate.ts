@@ -436,6 +436,7 @@ List of supported image types are:
       const OutFile = path.join(OutPreviewDir, FileName);
       await new Promise((resolve, reject)=>{
         gm(lib.X, lib.Y, 'transparent')
+          .setFormat('png')
           .gravity('center')
           .draw(`image over 0,0 0,0 "${WindowPath}"`)
           .gravity('top')
