@@ -223,21 +223,21 @@ List of supported image types are:
       if (!imagesChannel)
         try {
           // @ts-ignore
-          imagesChannel = await interaction.client.channels.fetch(process.env.CHANNELS_ID ?? '1001555842820231168', {
+          imagesChannel = await interaction.client.channels.fetch(process.env.IMAGES_CHANNEL ?? '1001555842820231168', {
             'force': true,
             'allowUnknownGuild': true,
             'cache': true
           });
         } catch (error) {
           console.error('Failed to get images channel!');
-          if (!process.env.CHANNELS_ID)
-            console.error('You likely forgot to set CHANNELS_ID in your environment vars and/or .env file');
+          if (!process.env.IMAGES_CHANNEL)
+            console.error('You likely forgot to set IMAGES_CHANNEL in your environment vars and/or .env file');
           console.error(error);
-          if (!process.env.CHANNELS_ID && error instanceof DiscordAPIError)
+          if (!process.env.IMAGES_CHANNEL && error instanceof DiscordAPIError)
             throw new Error(`API Error:
 ${error}
 Likely caused by:
-No CHANNELS_ID Environment Variable; Defaulted to main bot channel`);
+No IMAGES_CHANNEL Environment Variable; Defaulted to main bot channel`);
           else
             throw error;
         }
