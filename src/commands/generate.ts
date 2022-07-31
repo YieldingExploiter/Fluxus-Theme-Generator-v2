@@ -5,6 +5,7 @@ import {
   ButtonBuilder,
   ButtonInteraction,
   ButtonStyle,
+  DiscordAPIError,
   EmbedBuilder,
   EmbedField,
   Message,
@@ -232,7 +233,13 @@ List of supported image types are:
           if (!process.env.CHANNELS_ID)
             console.error('You likely forgot to set CHANNELS_ID in your environment vars and/or .env file');
           console.error(error);
-          throw error;
+          if (!process.env.CHANNELS_ID && error instanceof DiscordAPIError)
+            throw new Error(`API Error:
+${error}
+Likely caused by:
+No CHANNELS_ID Environment Variable; Defaulted to main bot channel`);
+          else
+            throw error;
         }
 
       if (file.size > FileLimit)
