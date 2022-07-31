@@ -220,12 +220,21 @@ List of supported image types are:
     return `${split.shift()}/**${split.join('/')}**`;
   }).join('\n - ')}`);
       if (!imagesChannel)
-      // @ts-ignore
-        imagesChannel = await interaction.client.channels.fetch('1001555842820231168', {
-          'force': true,
-          'allowUnknownGuild': true,
-          'cache': true
-        });
+        try {
+          // @ts-ignore
+          imagesChannel = await interaction.client.channels.fetch(process.env.CHANNELS_ID ?? '1001555842820231168', {
+            'force': true,
+            'allowUnknownGuild': true,
+            'cache': true
+          });
+        } catch (error) {
+          console.error('Failed to get images channel!');
+          if (!process.env.CHANNELS_ID)
+            console.error('You likely forgot to set CHANNELS_ID in your environment vars and/or .env file');
+          console.error(error);
+          throw error;
+        }
+
       if (file.size > FileLimit)
         throw new InputValidationError('File too big!\nPlease limit file sizes to 8MB');
     });
