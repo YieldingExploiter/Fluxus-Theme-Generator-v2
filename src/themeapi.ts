@@ -4,7 +4,7 @@ import * as path from 'path';
 const maskDir = path.resolve(process.cwd(), 'masks');
 if (!fs.existsSync(maskDir))
   fs.mkdirSync(maskDir);
-const gm = _gm.subClass({ 'imageMagick': true });
+const gm = _gm.default;// _gm.subClass({ 'imageMagick': true });
 export const X = 1854;
 export const Y = 1090;
 export type Settings = {
@@ -16,7 +16,7 @@ export const Overlays = {
   'Fluxus': path.resolve(process.cwd(), 'overlays', 'fluxus-preview.png')
 };
 export const ImageToWindow = async (ImagePath: string, Settings?: Settings)=>{
-  let State = gm(ImagePath);
+  let State = gm(`"${ImagePath}"`);
   const isGif = ImagePath.toLowerCase().endsWith('.gif');
   const TargetX = isGif ? X / 2 : X;
   const TargetY = isGif ? Y / 2 : Y;
