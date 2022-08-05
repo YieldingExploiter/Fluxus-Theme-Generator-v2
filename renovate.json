@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "github>MokiyCodes/MokiyCodes//cfg/renovate",
+    ":automergePr",
+    ":automergeAll"
   ]
 }
