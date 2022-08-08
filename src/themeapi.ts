@@ -16,7 +16,7 @@ export const Overlays = {
   'Fluxus': path.resolve(process.cwd(), 'overlays', 'fluxus-preview.png')
 };
 export const ImageToWindow = async (ImagePath: string, Settings?: Settings)=>{
-  let State = gm(`"${ImagePath}"`);
+  let State = gm(ImagePath);
   const isGif = ImagePath.toLowerCase().endsWith('.gif');
   const TargetX = isGif ? X / 2 : X;
   const TargetY = isGif ? Y / 2 : Y;
