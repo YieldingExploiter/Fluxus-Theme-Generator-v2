@@ -1,5 +1,5 @@
 FROM node:17-alpine3.14
-WORKDIR /app
+WORKDIR /
 ENV PATH="./node_modules/.bin:$PATH"
 COPY . .
 RUN npm i
