@@ -1,8 +1,9 @@
-FROM node:17-alpine3.14
-WORKDIR /
+FROM ubuntu
+WORKDIR /app
 ENV PATH="./node_modules/.bin:$PATH"
 COPY . .
+RUN apt update
+RUN apt install imagemagick graphicsmagick npm nodejs -y
 RUN npm i
 RUN npm run build
-RUN sudo pacman -S imagemagick graphicsmagick -y
 CMD [ "npm", "run", "start" ]
