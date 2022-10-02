@@ -4,7 +4,7 @@ import * as path from 'path';
 const maskDir = path.resolve(process.cwd(), 'masks');
 if (!fs.existsSync(maskDir))
   fs.mkdirSync(maskDir);
-const gm = _gm.default;// _gm.subClass({ 'imageMagick': true });
+const gm = _gm.subClass({ 'imageMagick': true });
 export const X = 1854;
 export const Y = 1090;
 export type Settings = {
