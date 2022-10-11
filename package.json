@@ -15,12 +15,11 @@
     "@discordjs/rest": "^0.1.0-canary.0",
     "axios": "^0.27.2",
     "discord-api-types": "^0.36.3",
-    "discord.js": "^14.0.3",
-    "dotenv": "^16.0.1",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
     "fs-extra": "^10.1.0",
-    "gm": "^1.23.1",
-    "ts-node": "^10.2.1",
-    "typescript": "^4.4.3"
+    "gm": "^1.25.0",
+    "typescript": "^4.8.4"
   },
   "devDependencies": {
     "@norathefurry/eslint-config": "1.1.2",
@@ -29,6 +28,7 @@
     "@types/node": "18.6.4",
     "eslint": "8.25.0",
     "nodemon": "2.0.19",
+    "ts-node": "^10.9.1",
     "tslib": "2.4.0"
   },
   "nodemonConfig": {
