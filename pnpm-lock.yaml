@@ -5,7 +5,7 @@ specifiers:
   '@norathefurry/eslint-config': 1.1.2
   '@types/fs-extra': 9.0.13
   '@types/gm': 1.18.12
-  '@types/node': 18.6.4
+  '@types/node': 18.6.5
   axios: ^0.27.2
   discord-api-types: ^0.36.3
   discord.js: ^14.6.0
@@ -32,10 +32,10 @@ devDependencies:
   '@norathefurry/eslint-config': 1.1.2_eslint@8.25.0
   '@types/fs-extra': 9.0.13
   '@types/gm': 1.18.12
-  '@types/node': 18.6.4
+  '@types/node': 18.6.5
   eslint: 8.25.0
   nodemon: 2.0.20
-  ts-node: 10.9.1_7x4pu3okkwzrmekxdc5xwh2req
+  ts-node: 10.9.1_jf4w7pr2znxwn2yhtkg2onr5h4
   tslib: 2.4.1
 
 packages:
@@ -249,26 +249,26 @@ packages:
   /@types/fs-extra/9.0.13:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
-      '@types/node': 18.6.4
+      '@types/node': 18.6.5
     dev: true
 
   /@types/gm/1.18.12:
     resolution: {integrity: sha512-k3Gd15Ywy75FiFQUsrqpKD42rhMdHaETyw2zjK9u3xbrH1c7nS+npSb19yjPCqR8KxeL7vw2zJF4Kl2bAca0aQ==}
     dependencies:
-      '@types/node': 18.6.4
+      '@types/node': 18.6.5
     dev: true
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
 
-  /@types/node/18.6.4:
-    resolution: {integrity: sha512-I4BD3L+6AWiUobfxZ49DlU43gtI+FTHSv9pE2Zekg6KjMpre4ByusaljW3vYSLJrvQ1ck1hUaeVu8HVlY3vzHg==}
+  /@types/node/18.6.5:
+    resolution: {integrity: sha512-Xjt5ZGUa5WusGZJ4WJPbOT8QOqp6nDynVFRKcUt32bOgvXEoc6o085WNkYTMO7ifAj2isEfQQ2cseE+wT6jsRw==}
 
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
     dependencies:
-      '@types/node': 18.6.4
+      '@types/node': 18.6.5
     dev: false
 
   /@typescript-eslint/eslint-plugin/5.40.0_25sstg4uu2sk4pm7xcyzuov7xq:
@@ -1503,7 +1503,7 @@ packages:
     resolution: {integrity: sha512-hvE+ZYXuINrx6Ei6D6hz+PTim0Uf++dYbK9FFifLNwQj+RwKquhQpn868yZsCtJYiclZF1u8l6WZxxKi+vv7Rg==}
     dev: false
 
-  /ts-node/10.9.1_7x4pu3okkwzrmekxdc5xwh2req:
+  /ts-node/10.9.1_jf4w7pr2znxwn2yhtkg2onr5h4:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -1522,7 +1522,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.6.4
+      '@types/node': 18.6.5
       acorn: 8.8.0
       acorn-walk: 8.2.0
       arg: 4.1.3
