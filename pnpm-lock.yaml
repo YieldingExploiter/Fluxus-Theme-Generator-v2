@@ -13,9 +13,9 @@ specifiers:
   eslint: 8.25.0
   fs-extra: ^10.1.0
   gm: ^1.25.0
-  nodemon: 2.0.19
+  nodemon: 2.0.20
   ts-node: ^10.9.1
-  tslib: 2.4.0
+  tslib: 2.4.1
   typescript: ^4.8.4
 
 dependencies:
@@ -34,9 +34,9 @@ devDependencies:
   '@types/gm': 1.18.12
   '@types/node': 18.6.4
   eslint: 8.25.0
-  nodemon: 2.0.19
+  nodemon: 2.0.20
   ts-node: 10.9.1_7x4pu3okkwzrmekxdc5xwh2req
-  tslib: 2.4.0
+  tslib: 2.4.1
 
 packages:
 
@@ -56,7 +56,7 @@ packages:
       discord-api-types: 0.37.12
       fast-deep-equal: 3.1.3
       ts-mixer: 6.0.1
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@discordjs/collection/0.1.6:
@@ -81,7 +81,7 @@ packages:
       discord-api-types: 0.18.1
       form-data: 4.0.0
       node-fetch: 2.6.7
-      tslib: 2.4.0
+      tslib: 2.4.1
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -96,7 +96,7 @@ packages:
       '@sapphire/snowflake': 3.2.2
       discord-api-types: 0.37.12
       file-type: 18.0.0
-      tslib: 2.4.0
+      tslib: 2.4.1
       undici: 5.11.0
     dev: false
 
@@ -568,7 +568,7 @@ packages:
     dev: false
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /create-require/1.1.1:
@@ -674,7 +674,7 @@ packages:
       discord-api-types: 0.37.12
       fast-deep-equal: 3.1.3
       lodash.snakecase: 4.1.1
-      tslib: 2.4.0
+      tslib: 2.4.1
       undici: 5.11.0
       ws: 8.9.0
     transitivePeerDependencies:
@@ -1207,11 +1207,10 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
-  /nodemon/2.0.19:
-    resolution: {integrity: sha512-4pv1f2bMDj0Eeg/MhGqxrtveeQ5/G/UVe9iO6uTZzjnRluSA4PVWf8CW99LUPwGB3eNIA7zUFoP77YuI7hOc0A==}
+  /nodemon/2.0.20:
+    resolution: {integrity: sha512-Km2mWHKKY5GzRg6i1j5OxOHQtuvVsgskLfigG25yTtbyfRGn/GNvIbRyOf1PSCKJ2aT/58TiuUsuOU5UToVViw==}
     engines: {node: '>=8.10.0'}
     hasBin: true
-    requiresBuild: true
     dependencies:
       chokidar: 3.5.3
       debug: 3.2.7_supports-color@5.5.0
@@ -1539,8 +1538,8 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
-  /tslib/2.4.0:
-    resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
+  /tslib/2.4.1:
+    resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
 
   /tsutils/3.21.0_typescript@4.8.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
